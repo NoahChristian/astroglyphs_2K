@@ -31,6 +31,18 @@ All glyphs are subset from Noto and **renamed** per the OFL Reserved Font Name c
 | `AstroMath` | Noto Sans Math      | ⊗ Part of Fortune |
 | `AstroText` | Noto Sans           | digits, Latin, `℞` · `°` · `′` · `″` |
 
+Those four families are packaged in two **font sets** — pick one with the `fontset=` argument to
+`font_face_css`, `save_fonts` and `font_bytes`:
+
+| Font set | Size (MB) | Numchars | Origin set | Licensing |
+|:---|---:|---:|:---|:---|
+| `astroset` (default) | 0.15 | 147 | Curated subset of Noto Sans Symbols, Symbols 2, Math & Sans | SIL OFL 1.1 |
+| `fullset` | 7.93 | 8,785 | Full Noto Sans Symbols, Symbols 2, Math & Sans | SIL OFL 1.1 |
+
+Sizes are the shipped `.ttf` + `.otf` + `.woff2` files combined (astroset ships base64-inlined in
+the module too); `astroset` covers exactly the astrology inventory plus digits/Latin/marks, while
+`fullset` carries every glyph in the four source fonts.
+
 `SYM_FAMILY` and `TXT_FAMILY` are ready-made `font-family` stacks (embedded families first,
 system fallbacks after), so with `font_face_css(embed=False)` the page degrades gracefully to
 the viewer's own fonts.
