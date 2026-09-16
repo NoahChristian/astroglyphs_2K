@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "astroglyphs_2K"
+version = "0.1.0"
+description = "Curated OFL astrology glyph fonts (the best of Noto) + metrics + embedding helpers"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "Elizabeth Huston" },
+    { name = "Noah Christian" },
+]
+keywords = [
+    "astrology", "fonts", "glyphs", "svg", "noto", "ofl", "zodiac", "planets", "webfont",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+]
+# The runtime is pure data + stdlib — no dependencies. The bundled glyphs are subset from the
+# Noto family and licensed under the SIL Open Font License 1.1 (see LICENSES/OFL.txt); the code
+# is MIT. fonttools + brotli are needed only to REBUILD the data (tools/build.py).
+dependencies = []
+
+[project.optional-dependencies]
+build = ["fonttools>=4.4", "brotli>=1.0"]
+test = ["pytest>=7", "ruff>=0.6", "mypy>=1.10"]
+
+[project.urls]
+Homepage = "https://github.com/NoahChristian/astroglyphs_2K"
+Repository = "https://github.com/NoahChristian/astroglyphs_2K"
+
+[tool.hatch.build]
+# ship the generated font files (ttf/otf/woff2 for astroset + fullset) as binary package data
+artifacts = [
+    "src/astroglyphs_2K/fonts/astroset/*",
+    "src/astroglyphs_2K/fonts/fullset/*",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/astroglyphs_2K"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/astroglyphs_2K", "tools", "README.md", "CHANGELOG.md", "LICENSE", "LICENSES"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+# E501: the generated _data.py holds long base64 lines. UP031: %-formatting is deliberate.
+ignore = ["E501", "UP031"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["src/astroglyphs_2K"]
+ignore_missing_imports = true
+disallow_untyped_defs = false
