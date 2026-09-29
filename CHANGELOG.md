@@ -6,6 +6,12 @@ All notable changes to **astroglyphs_2K** are documented here. The format follow
 
 ## [Unreleased]
 
+### Added
+- **`Out/` download folder** — every font file as ready-to-install `Out/<fontset>/<FORMAT>/`
+  (`astroset` / `fullset` × `TTF` / `OTF` / `WOFF2`) plus `OFL.txt`, byte-identical to the
+  package data. `tools/build.py` refreshes it on every build (`--out-only` to refresh alone),
+  and a test fails if it drifts from `src/astroglyphs_2K/fonts/`.
+
 ## [0.1.0] — 2026-09-15
 
 Initial release — curated OFL astrology glyph fonts + metrics + embedding helpers.

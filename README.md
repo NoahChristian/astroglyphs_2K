@@ -12,6 +12,10 @@ can inline directly into an SVG or HTML page, and tells you exactly how big each
 pip install astroglyphs_2K
 ```
 
+Just want the fonts? Every font is also in the [`Out/`](Out) folder as ready-to-install
+**TTF**, **OTF** and **WOFF2** files — `Out/<fontset>/<FORMAT>/`, e.g.
+[`Out/astroset/TTF/`](Out/astroset/TTF) — no Python needed.
+
 ```python
 import astroglyphs_2K as ag
 
@@ -155,7 +159,8 @@ renamed (`Astro*`) so they are not distributed under a Noto Reserved Font Name.
 
 ```bash
 pip install -e ".[build]"      # fonttools + brotli
-python tools/build.py          # regenerates src/astroglyphs_2K/_data.py from tools/fonts/*.ttf
+python tools/build.py          # regenerates src/astroglyphs_2K/_data.py + font files, and Out/
+python tools/build.py --out-only   # just refresh Out/ from the committed package fonts
 ```
 
 Deterministic: the same vendored sources produce the same `_data.py`.

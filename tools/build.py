@@ -5,7 +5,10 @@ Subsets each Noto font to the astrology glyph inventory (routing every glyph to 
 source font actually contains it, verified by cmap), renames the family per the OFL Reserved
 Font Name clause, emits woff2, base64-encodes it, and extracts real per-glyph metrics.
 
+Also mirrors the finished font files into the top-level Out/ folder (see sync_out).
+
 Build-only. Needs: fonttools, brotli. Run:  python tools/build.py
+Refresh only Out/ from the committed package fonts (no rebuild):  python tools/build.py --out-only
 Deterministic: same sources -> same _data.py.
 """
 from __future__ import annotations
@@ -27,6 +30,10 @@ from fontTools.ttLib import TTFont
 HERE = pathlib.Path(__file__).resolve().parent
 FONTS = HERE / "fonts"
 OUT = HERE.parent / "src" / "astroglyphs_2K" / "_data.py"
+# Top-level, human-browsable copy of every installable font file: Out/<fontset>/<FORMAT>/...
+DIST_OUT = HERE.parent / "Out"
+FONT_SETS = ("astroset", "fullset")
+FONT_EXTS = ("ttf", "otf", "woff2")
 
 # Per-glyph em-scale corrections: a source font can draw a glyph larger than the rest of the
 # inventory at the same em, so we scale its outline about its ink centre (advance unchanged, so
@@ -221,6 +228,28 @@ def build_fullset_files():
         print(f"fullset {fam:9} {kb:6} KB (ttf+otf+woff2)  ({fn})")
 
 
+def sync_out():
+    """Mirror the packaged font files into the top-level ``Out/`` folder, grouped by font set
+    and format (``Out/astroset/TTF/AstroSym.ttf`` ...), plus the OFL licence. Byte-identical
+    copies of ``src/astroglyphs_2K/fonts/*`` — so the repo offers direct downloads without pip.
+    Stale files in Out/<fontset>/<FORMAT>/ are removed so the mirror never drifts."""
+    import shutil
+    pkg_fonts = OUT.parent / "fonts"
+    for fs in FONT_SETS:
+        for ext in FONT_EXTS:
+            dest = DIST_OUT / fs / ext.upper()
+            dest.mkdir(parents=True, exist_ok=True)
+            srcs = sorted((pkg_fonts / fs).glob("*." + ext))
+            keep = {f.name for f in srcs}
+            for old in dest.iterdir():
+                if old.name not in keep:
+                    old.unlink()
+            for f in srcs:
+                shutil.copyfile(f, dest / f.name)
+    shutil.copyfile(HERE.parent / "LICENSES" / "OFL.txt", DIST_OUT / "OFL.txt")
+    print(f"synced font files -> {DIST_OUT}")
+
+
 def main():
     routed = {name: [] for name, _ in SYMBOL_SOURCES}
     src_cmaps = {name: _cmap(TTFont(FONTS / fn)) for name, fn in SYMBOL_SOURCES}
@@ -279,7 +308,12 @@ def main():
     print(f"\nwrote {OUT}  ({OUT.stat().st_size//1024} KB)  metrics for {len(metrics)} glyphs")
     print()
     build_fullset_files()
+    sync_out()
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--out-only" in sys.argv[1:]:   # just refresh Out/ from the committed package fonts
+        sync_out()
+    else:
+        main()

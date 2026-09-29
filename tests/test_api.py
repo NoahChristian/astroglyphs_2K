@@ -99,3 +99,25 @@ def test_save_fonts_writes_files(tmp_path):
     # the otf really is OpenType-CFF, the ttf really is TrueType
     assert (tmp_path / "AstroText.otf").read_bytes()[:4] == b"OTTO"
     assert (tmp_path / "AstroText.ttf").read_bytes()[:4] == b"\x00\x01\x00\x00"
+
+
+# --- the top-level Out/ folder mirrors the packaged font files byte-for-byte ---
+import pathlib  # noqa: E402
+
+_REPO = pathlib.Path(__file__).resolve().parent.parent
+_PKG_FONTS = _REPO / "src" / "astroglyphs_2K" / "fonts"
+_DIST_OUT = _REPO / "Out"
+
+
+@pytest.mark.parametrize("fontset", ag.FONT_SETS)
+@pytest.mark.parametrize("fmt", ag.FONT_FORMATS)
+def test_out_folder_mirrors_package_fonts(fontset, fmt):
+    pkg = {p.name: p.read_bytes() for p in (_PKG_FONTS / fontset).glob("*." + fmt)}
+    out = {p.name: p.read_bytes() for p in (_DIST_OUT / fontset / fmt.upper()).glob("*")}
+    assert pkg, "no packaged %s/%s fonts" % (fontset, fmt)
+    assert out == pkg, "Out/%s/%s is stale — run: python tools/build.py --out-only" % (
+        fontset, fmt.upper())
+
+
+def test_out_folder_ships_licence():
+    assert (_DIST_OUT / "OFL.txt").read_bytes() == (_REPO / "LICENSES" / "OFL.txt").read_bytes()
