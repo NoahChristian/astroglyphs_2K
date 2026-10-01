@@ -6,32 +6,34 @@ byte-identical to the package data in `src/astroglyphs_2K/fonts/` and are regene
 
 ```
 Out/
-├── astroset/          curated astrology subset (147 chars, ~150 KB total)
-│   ├── TTF/           TrueType   — install on Windows / macOS / Linux
-│   ├── OTF/           OpenType-CFF — install on desktop, preferred by some design apps
-│   └── WOFF2/         web fonts  — for @font-face on a website
-├── fullset/           the complete renamed Noto fonts (8,785 chars, ~8 MB total)
-│   ├── TTF/
-│   ├── OTF/
-│   └── WOFF2/
+├── Astroglyphs2K/     the Unicode font — for charts, web pages and any app that types Unicode
+├── AstroglyphPi/      keyboard font, same key layout as AstrotypeP LT Std
+├── AstroglyphPro/     keyboard font, mnemonic layout
+│   ├── TTF/           TrueType      — install on Windows / macOS / Linux
+│   ├── OTF/           OpenType-CFF  — install on desktop; preferred by some design apps
+│   └── WOFF2/         web font      — for @font-face on a website
 └── OFL.txt            SIL Open Font License 1.1 (applies to every font here)
 ```
 
-Each format folder holds the four families:
+All three fonts share one set of drawings, so a glyph looks identical whichever font you use.
 
-| File | Contents |
-|---|---|
-| `AstroSym`  | planets, nodes, the 12 signs, asteroids, Chiron, Lilith, Hygeia, aspects (from Noto Sans Symbols) |
-| `AstroSym2` | Sun, Eros, Eris, Sedna, □ △ ✦ (from Noto Sans Symbols 2) |
-| `AstroMath` | ⊗ Part of Fortune, ∠ semi-square (from Noto Sans Math) |
-| `AstroText` | digits, Latin, ℞ ° ′ ″ · (from Noto Sans) |
+## Which font?
 
-**Which set?** Use `astroset` for astrology charts — it is tiny and covers the whole
-inventory. Use `fullset` only if you need other Noto symbols too. Both use the same family
-names, so install one set or the other, not both.
+| Font | Use it when | Typing |
+|---|---|---|
+| **Astroglyphs 2K** | Charts, web, any text that should stay real Unicode (copy/paste, search and screen readers all see ♈, not "A") | Paste or insert symbols; digits and Latin letters are normal text |
+| **AstroglyphPi** | Existing documents and templates set in AstrotypeP LT Std — swap the font, keep the text | `1`–`9` planets from the Sun, `Q` ♈, `D` ♉ … as in AstrotypeP. Set numbers and labels in a text font |
+| **AstroglyphPro** | New work you type by hand | `a`–`l` signs in zodiac order, `A`–`L` Sun … South Node, `M`–`Z` points, `m`–`z` aspects. Digits, punctuation and `° ′ ″` stay text, so `15a22°` gives 15♈22° |
 
-**Which format?** For desktop apps install either TTF or OTF (not both — they have the same
-family names). WOFF2 is for the web only.
+The full key maps are in [`spec/astroglyph_pi.csv`](../spec/astroglyph_pi.csv) and
+[`spec/astroglyph_pro.csv`](../spec/astroglyph_pro.csv).
 
-Fonts: SIL Open Font License 1.1, subset from the Noto project and renamed `Astro*` per the
-OFL Reserved Font Name clause — see `OFL.txt`.
+**Hermetic lots** (Fortune, Spirit, Eros, Necessity, Courage, Victory, Nemesis) sit on the
+same keys in both keyboard fonts: `È É Ê Ë Ì Í Î`. On a Mac type Option-\` then Shift-E, I and
+so on; on Windows, Alt+0200 to Alt+0206.
+
+**Which format?** For desktop apps install TTF or OTF, not both (they share family names).
+WOFF2 is for the web only.
+
+Fonts: SIL Open Font License 1.1. Built from the Noto project's fonts and renamed per the OFL
+Reserved Font Name clause — see `OFL.txt`.

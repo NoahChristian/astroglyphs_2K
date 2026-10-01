@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "astroglyphs_2K"
-version = "0.1.0"
-description = "Curated OFL astrology glyph fonts (the best of Noto) + metrics + embedding helpers"
+version = "0.2.0"
+description = "OFL astrology glyph fonts (Unicode + two keyboard layouts) built from Noto, with metrics and embedding helpers"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -32,25 +32,22 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-build = ["fonttools>=4.4", "brotli>=1.0"]
-test = ["pytest>=7", "ruff>=0.6", "mypy>=1.10"]
+build = ["fonttools>=4.4", "brotli>=1.0", "skia-pathops>=0.8"]
+test = ["pytest>=7", "ruff>=0.6", "mypy>=1.10", "fonttools>=4.4"]
 
 [project.urls]
 Homepage = "https://github.com/NoahChristian/astroglyphs_2K"
 Repository = "https://github.com/NoahChristian/astroglyphs_2K"
 
 [tool.hatch.build]
-# ship the generated font files (ttf/otf/woff2 for astroset + fullset) as binary package data
-artifacts = [
-    "src/astroglyphs_2K/fonts/astroset/*",
-    "src/astroglyphs_2K/fonts/fullset/*",
-]
+# ship the generated font files (ttf/otf/woff2 for all three fonts) as binary package data
+artifacts = ["src/astroglyphs_2K/fonts/*"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/astroglyphs_2K"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src/astroglyphs_2K", "tools", "README.md", "CHANGELOG.md", "LICENSE", "LICENSES"]
+include = ["src/astroglyphs_2K", "tools", "spec", "README.md", "CHANGELOG.md", "LICENSE", "LICENSES"]
 
 [tool.ruff]
 line-length = 100
