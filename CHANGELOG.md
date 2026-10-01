@@ -6,11 +6,47 @@ All notable changes to **astroglyphs_2K** are documented here. The format follow
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-10-01
+
+One glyph set, three fonts. **Breaking:** the four `Astro*` families and the `fontset=`
+argument are replaced (see *Changed*).
+
 ### Added
-- **`Out/` download folder** — every font file as ready-to-install `Out/<fontset>/<FORMAT>/`
-  (`astroset` / `fullset` × `TTF` / `OTF` / `WOFF2`) plus `OFL.txt`, byte-identical to the
-  package data. `tools/build.py` refreshes it on every build (`--out-only` to refresh alone),
-  and a test fails if it drifts from `src/astroglyphs_2K/fonts/`.
+- **AstroglyphPi** — keyboard font, key-for-key compatible with AstrotypeP LT Std (layout only;
+  all drawings from Noto). Existing AstrotypeP documents can switch font without retyping.
+- **AstroglyphPro** — keyboard font with a mnemonic layout; digits, punctuation and `° ′ ″`
+  stay text.
+- **Alternate forms** at their Unicode codepoints: Pluto forms two–five (⯓ ⯔ ⯕ ⯖), astronomical
+  Uranus ⛢, Eris form two ⯱, Hygiea ⯚, circled-S Spirit Ⓢ, right-angle semisquare ∟.
+  `alternates(name)` lists them, default first.
+- **Hermetic lots**: Lot of Fortune at its Unicode 15 codepoint U+1F774, Lot of Spirit ⦶, and
+  composed Eros, Necessity, Courage, Victory and Nemesis glyphs; all seven in a contiguous
+  Private Use block (U+E100–E106, Paulus order). `lot(name)` resolves aliases (Genius/Daimon =
+  Spirit, Love = Eros, Daring = Courage).
+- Astronomy and esoteric glyphs needed by AstroglyphPi: composed moon phases (U+E001–E004),
+  half-filled circles, crescents, pentagram, hexagram, alchemical air/earth/sulfur, gateway.
+- More points and aspects: Earth ♁, Pholus ⯛, quintile ⯵, novile ⯴, vigintile ⯳.
+- `glyph(name)`, `keys_to_unicode(text, layout)`, and the `GLYPHS`, `ALTERNATES`, `LOTS`,
+  `LOT_ALIASES`, `PI_KEYMAP`, `PRO_KEYMAP` maps.
+- `tools/registry.py` — the single source of truth for every glyph and key; `spec/*.csv` key maps
+  are generated from it.
+- Fonts now carry full OFL licence and copyright entries in their name tables.
+
+### Changed
+- **`Out/` download folder** of ready-to-install TTF/OTF/WOFF2 files, kept byte-identical
+  to the package data by the build and checked by a test.
+- **One family.** `AstroSym`, `AstroSym2`, `AstroMath` and `AstroText` are merged into
+  **Astroglyphs 2K**. `font_face_css()` now emits one `@font-face` (12 KB woff2, down from
+  ~49 KB across four). `FAMILY` is the new stack; `SYM_FAMILY` / `TXT_FAMILY` now both start with
+  the single family. `SYMBOL_FAMILY_NAMES` / `TEXT_FAMILY_NAME` remain as deprecated aliases.
+- `font_bytes(font, fmt)` and `save_fonts(dest, fonts, formats)` take font names from
+  `FONT_NAMES` instead of a family + `fontset`.
+- `Out/` is now `Out/<Font>/<FORMAT>/`, with a guide to choosing a font.
+- Hinting is no longer carried over from Noto (no visible effect at chart sizes).
+
+### Removed
+- The `fullset` (whole renamed Noto fonts, ~8 MB) and the `fontset=` argument.
+- `SYMBOLS_WOFF2_B64` / `TEXT_WOFF2_B64`; use `WOFF2_B64` or `font_face_css()`.
 
 ## [0.1.0] — 2026-09-15
 
@@ -37,4 +73,5 @@ Initial release — curated OFL astrology glyph fonts + metrics + embedding help
 - Zero runtime dependencies. `tools/build.py` regenerates the data + font files from the vendored
   Noto sources (needs fonttools + brotli; build-only) and is deterministic.
 
+[0.2.0]: https://github.com/NoahChristian/astroglyphs_2K/releases/tag/v0.2.0
 [0.1.0]: https://github.com/NoahChristian/astroglyphs_2K/releases/tag/v0.1.0
