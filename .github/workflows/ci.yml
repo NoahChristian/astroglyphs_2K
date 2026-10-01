@@ -24,7 +24,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       # Pure data + stdlib, zero runtime deps. Tests exercise the committed generated data
-      # (_data.py) and the bundled woff2 package data — no font rebuild, so no fonttools needed.
+      # (_data.py) and the bundled font files; fonttools (test extra) only reads their cmaps.
       - name: Install astroglyphs_2K + test deps
         run: python -m pip install ".[test]"
 

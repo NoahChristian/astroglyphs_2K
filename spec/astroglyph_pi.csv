@@ -1,0 +1,78 @@
+key,key_hex,unicode,unicode_name,identity,status,note
+0,0x30,U+29B5,CIRCLE WITH HORIZONTAL BAR,Circle with horizontal bar,check,Meaning unconfirmed
+1,0x31,U+2609,SUN,Sun,match,
+2,0x32,U+263F,MERCURY,Mercury,match,
+3,0x33,U+2640,FEMALE SIGN,Venus,match,
+4,0x34,U+2641,EARTH,Earth,match,
+5,0x35,U+2642,MALE SIGN,Mars,match,
+6,0x36,U+2643,JUPITER,Jupiter,match,
+7,0x37,U+2644,SATURN,Saturn,match,
+8,0x38,U+26E2,ASTRONOMICAL SYMBOL FOR URANUS,Uranus (astronomical),match,Alternate of a
+9,0x39,U+2646,NEPTUNE,Neptune,match,
+A,0x41,U+2652,AQUARIUS,Aquarius,match,
+B,0x42,U+E001,"PRIVATE USE (Moon: white disc, dark crescent left)","Moon: white disc, dark crescent left",match,Composed
+C,0x43,U+E002,"PRIVATE USE (Moon: white disc, dark crescent right)","Moon: white disc, dark crescent right",match,Composed
+D,0x44,U+2649,TAURUS,Taurus,check,Taurus also at W
+E,0x45,U+264A,GEMINI,Gemini,match,
+F,0x46,U+260B,DESCENDING NODE,South Node (calligraphic form),check,Standard South Node is on t
+G,0x47,U+264D,VIRGO,Virgo (alternate form),match,Renders the standard Virgo in v1
+H,0x48,U+25A9,SQUARE WITH DIAGONAL CROSSHATCH FILL,Gateway,check,U+25A9 is the shape stand-in
+I,0x49,U+264F,SCORPIUS,Scorpio,match,
+J,0x4A,U+25CB,WHITE CIRCLE,White circle,check,Full moon?
+K,0x4B,U+2296,CIRCLED MINUS,Circle with bar inside,check,
+L,0x4C,U+2295,CIRCLED PLUS,Circled plus,check,
+M,0x4D,U+E003,"PRIVATE USE (Moon: dark disc, white crescent right)","Moon: dark disc, white crescent right",match,Composed
+N,0x4E,U+25D0,CIRCLE WITH LEFT HALF BLACK,Moon: left half dark,match,
+O,0x4F,U+2650,SAGITTARIUS,Sagittarius,match,
+P,0x50,U+2651,CAPRICORN,Capricorn,match,
+Q,0x51,U+2648,ARIES,Aries,match,
+R,0x52,U+264B,CANCER,Cancer,match,
+S,0x53,U+2653,PISCES,Pisces,match,
+T,0x54,U+264C,LEO,Leo,match,
+U,0x55,U+264E,LIBRA,Libra,match,
+V,0x56,U+25EF,LARGE CIRCLE,Large white circle,check,
+W,0x57,U+2649,TAURUS,Taurus (second form),check,See D
+X,0x58,U+25D1,CIRCLE WITH RIGHT HALF BLACK,Moon: right half dark,match,
+Y,0x59,U+E004,"PRIVATE USE (Moon: dark disc, white crescent left)","Moon: dark disc, white crescent left",match,Composed
+Z,0x5A,U+264D,VIRGO,Virgo,match,
+a,0x61,U+2645,URANUS,Uranus (astrological),match,Alternate of 8
+b,0x62,U+25CF,BLACK CIRCLE,Black disc,check,"b, c, v are all black discs"
+c,0x63,U+25CF,BLACK CIRCLE,Black disc (second form),check,See b
+d,0x64,U+26B5,JUNO,Juno,check,
+e,0x65,U+211E,PRESCRIPTION TAKE,Retrograde,match,
+f,0x66,U+26B3,CERES,Ceres,check,
+g,0x67,U+25B3,WHITE UP-POINTING TRIANGLE,Trine,match,
+h,0x68,U+25BD,WHITE DOWN-POINTING TRIANGLE,Down triangle,check,
+i,0x69,U+2650,SAGITTARIUS,Sagittarius (alternate form),match,Renders the standard Sagittarius in v1
+j,0x6A,U+1F701,ALCHEMICAL SYMBOL FOR AIR,Air (alchemical),check,
+k,0x6B,U+1F703,ALCHEMICAL SYMBOL FOR EARTH,Earth (alchemical),check,
+l,0x6C,U+2721,STAR OF DAVID,Hexagram,match,
+m,0x6D,U+263D,FIRST QUARTER MOON,Crescent moon (waxing),match,
+n,0x6E,U+25D7,RIGHT HALF BLACK CIRCLE,Right half black circle,match,
+o,0x6F,U+26BA,SEMISEXTILE,Semisextile,match,
+p,0x70,U+26BB,QUINCUNX,Quincunx,match,
+q,0x71,U+260C,CONJUNCTION,Conjunction,match,
+r,0x72,U+260A,ASCENDING NODE,North Node,match,
+s,0x73,U+1F70D,ALCHEMICAL SYMBOL FOR SULFUR,Sulfur (alchemical),check,
+t,0x74,U+260B,DESCENDING NODE,South Node,match,
+u,0x75,U+221F,RIGHT ANGLE,Semisquare (right angle form),check,
+v,0x76,U+2B24,BLACK LARGE CIRCLE,Large black circle,check,See b
+w,0x77,U+260D,OPPOSITION,Opposition,match,
+x,0x78,U+25D6,LEFT HALF BLACK CIRCLE,Left half black circle,match,
+y,0x79,U+263E,LAST QUARTER MOON,Crescent moon (waning),check,Same as >?
+z,0x7A,U+25A1,WHITE SQUARE,Square,match,
+!,0x21,U+26B9,SEXTILE,Sextile,match,
+",",0x2C,U+25E0,UPPER HALF CIRCLE,Moon crescent (horned),check,Shape stand-in
+.,0x2E,U+25E1,LOWER HALF CIRCLE,"Moon crescent (horned, opposite)",check,Shape stand-in
+:,0x3A,U+25D2,CIRCLE WITH LOWER HALF BLACK,"Circle, lower half black",match,
+;,0x3B,U+25D3,CIRCLE WITH UPPER HALF BLACK,"Circle, upper half black",match,
+<,0x3C,U+2646,NEPTUNE,Neptune (alternate form),match,Renders the standard Neptune in v1
+>,0x3E,U+263E,LAST QUARTER MOON,Crescent moon (waning),check,See y
+?,0x3F,U+26E4,PENTAGRAM,Pentagram,match,
+È,0xC8,U+1F774,LOT OF FORTUNE,Lot of Fortune (Moon),match,Also at S in Pro
+É,0xC9,U+29B6,CIRCLED VERTICAL BAR,Lot of Spirit (Sun),match,Circle with vertical bar; alternate: circled S
+Ê,0xCA,U+E102,PRIVATE USE (Lot of Eros),Lot of Eros (Venus),match,Composed: Venus with a lot index
+Ë,0xCB,U+E103,PRIVATE USE (Lot of Necessity),Lot of Necessity (Mercury),match,Composed: Mercury with a lot index
+Ì,0xCC,U+E104,PRIVATE USE (Lot of Courage),Lot of Courage (Mars),match,Composed: Mars with a lot index
+Í,0xCD,U+E105,PRIVATE USE (Lot of Victory),Lot of Victory (Jupiter),match,Composed: Jupiter with a lot index
+Î,0xCE,U+E106,PRIVATE USE (Lot of Nemesis),Lot of Nemesis (Saturn),match,Composed: Saturn with a lot index
