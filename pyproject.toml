@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "astroglyphs_2K"
-version = "0.2.0"
+version = "0.2.1"
 description = "OFL astrology glyph fonts (Unicode + two keyboard layouts) built from Noto, with metrics and embedding helpers"
 readme = "README.md"
 license = "MIT"
