@@ -194,3 +194,23 @@ def test_out_folder_mirrors_package_fonts(font, fmt):
 
 def test_out_folder_ships_licence():
     assert (_DIST_OUT / "OFL.txt").read_bytes() == (_REPO / "LICENSES" / "OFL.txt").read_bytes()
+
+
+# --- OS/2 metadata Windows needs ---------------------------------------------------------------
+@pytest.mark.parametrize("font", ag.FONT_NAMES)
+@pytest.mark.parametrize("fmt", ag.FONT_FORMATS)
+def test_fonts_declare_a_code_page(font, fmt):
+    """Without a code page bit Windows treats the font as unable to set text: Word lists the
+    family but renders Courier New instead. Bit 0 is cp1252 Latin 1, which all three cover."""
+    from fontTools.ttLib import TTFont
+    os2 = TTFont(_PKG_FONTS / f"{ag.FONT_FILES[font]}.{fmt}")["OS/2"]
+    assert os2.ulCodePageRange1 & 0x1, f"{font}.{fmt} declares no cp1252 code page"
+
+
+@pytest.mark.parametrize("font", ag.FONT_NAMES)
+@pytest.mark.parametrize("fmt", ag.FONT_FORMATS)
+def test_fonts_declare_a_panose(font, fmt):
+    """An all-zero PANOSE leaves Windows' substitute face arbitrary when a font is missing."""
+    from fontTools.ttLib import TTFont
+    panose = TTFont(_PKG_FONTS / f"{ag.FONT_FILES[font]}.{fmt}")["OS/2"].panose
+    assert panose.bFamilyType in (2, 5), f"{font}.{fmt} has no PANOSE family type"

@@ -6,6 +6,22 @@ All notable changes to **astroglyphs_2K** are documented here. The format follow
 
 ## [Unreleased]
 
+## [0.2.1] — 2026-10-05
+
+### Fixed
+- **The fonts now render in Microsoft Word on Windows.** All three declared no code pages
+  (`OS/2.ulCodePageRange1 = 0`, fontTools' default), which Windows reads as "this font cannot
+  set text": Word listed the family but rendered Courier New instead. Font viewers were
+  unaffected, since they draw from the `cmap` directly. The fonts now declare bit 0 (cp1252
+  Latin 1), which all three cover. Verified against Word 16.0 — `AstroglyphPi` at 20 pt went
+  from Courier's 95.9 pt advance to its own 149.7 pt.
+- `OS/2.panose` is no longer all zeros. It does not cause the substitution, but it decides
+  *which* face Windows picks when a font really is missing. Astroglyphs 2K declares Latin text,
+  the two keyboard fonts declare Latin pictorial.
+
+Glyph outlines, character maps and metrics are unchanged from 0.2.0; installed copies should be
+replaced to pick up the fix.
+
 ## [0.2.0] — 2026-10-01
 
 One glyph set, three fonts. **Breaking:** the four `Astro*` families and the `fontset=`
@@ -73,5 +89,6 @@ Initial release — curated OFL astrology glyph fonts + metrics + embedding help
 - Zero runtime dependencies. `tools/build.py` regenerates the data + font files from the vendored
   Noto sources (needs fonttools + brotli; build-only) and is deterministic.
 
+[0.2.1]: https://github.com/NoahChristian/astroglyphs_2K/releases/tag/v0.2.1
 [0.2.0]: https://github.com/NoahChristian/astroglyphs_2K/releases/tag/v0.2.0
 [0.1.0]: https://github.com/NoahChristian/astroglyphs_2K/releases/tag/v0.1.0
