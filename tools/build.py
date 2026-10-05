@@ -38,6 +38,7 @@ from fontTools.pens.t2CharStringPen import T2CharStringPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
+from fontTools.ttLib.tables.O_S_2f_2 import Panose
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import registry as R  # noqa: E402
@@ -51,7 +52,7 @@ PKG_FONTS = PKG / "fonts"
 DIST_OUT = REPO / "Out"
 SPEC = REPO / "spec"
 
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 UPM = 1000
 FIXED_TIME = 3870000000            # pinned head.created/modified (2026-08-21) for determinism
 FONT_EXTS = ("ttf", "otf", "woff2")
@@ -61,6 +62,21 @@ UNICODE_FONT = ("Astroglyphs2K", "Astroglyphs 2K")
 PI_FONT = ("AstroglyphPi", "AstroglyphPi")
 PRO_FONT = ("AstroglyphPro", "AstroglyphPro")
 FONT_LIST = (UNICODE_FONT, PI_FONT, PRO_FONT)
+
+# OS/2 code pages and PANOSE. Windows reads ulCodePageRange to decide whether a font can set
+# text at all; left at 0 (fontTools' default) Word lists the family but renders Courier New
+# instead. Bit 0 is cp1252 Latin 1, which all three fonts cover — every one of them maps the
+# ASCII range, the keyboard fonts to glyphs rather than letters. PANOSE only steers WHICH face
+# Windows substitutes if the font is ever missing, but all-zero leaves that arbitrary, so each
+# family declares what it is.
+CODE_PAGE_RANGE_1 = 0x00000001                       # bit 0 = cp1252 Latin 1
+PANOSE_FIELDS = ("bFamilyType", "bSerifStyle", "bWeight", "bProportion", "bContrast",
+                 "bStrokeVariation", "bArmStyle", "bLetterForm", "bMidline", "bXHeight")
+PANOSE_LATIN_TEXT = (2, 11, 5, 3, 0, 0, 0, 2, 0, 4)  # Latin text, normal sans, book weight
+PANOSE_PICTORIAL = (5, 0, 0, 0, 0, 0, 0, 0, 0, 0)    # Latin pictorial — the keyboard fonts
+PANOSE_BY_STEM = {UNICODE_FONT[0]: PANOSE_LATIN_TEXT,
+                  PI_FONT[0]: PANOSE_PICTORIAL,
+                  PRO_FONT[0]: PANOSE_PICTORIAL}
 
 TEXT_SOURCE = "NotoSans.ttf"
 SYMBOL_SOURCES = ["NotoSansSymbols.ttf", "NotoSansSymbols2.ttf", "NotoSansMath.ttf", "NotoSans.ttf"]
@@ -285,7 +301,9 @@ def build_font(stem, family, cmap: dict[int, int], pool, notdef, src_versions) -
     fb.setupNameTable(_name_table(family, stem, src_versions))
     fb.setupOS2(sTypoAscender=1069, sTypoDescender=-293, sTypoLineGap=0,
                 usWinAscent=max(1069, ymax), usWinDescent=max(293, -ymin),
-                fsType=0, achVendID="NONE", fsSelection=0x40 | 0x80, version=4)
+                fsType=0, achVendID="NONE", fsSelection=0x40 | 0x80, version=4,
+                ulCodePageRange1=CODE_PAGE_RANGE_1,
+                panose=Panose(**dict(zip(PANOSE_FIELDS, PANOSE_BY_STEM[stem], strict=True))))
     fb.setupPost()
     head = fb.font["head"]
     head.created = head.modified = FIXED_TIME
@@ -321,7 +339,8 @@ def _to_otf(ttf):
     fb.setupOS2(sTypoAscender=o.sTypoAscender, sTypoDescender=o.sTypoDescender,
                 sTypoLineGap=o.sTypoLineGap, usWinAscent=o.usWinAscent,
                 usWinDescent=o.usWinDescent, fsType=0, achVendID="NONE",
-                fsSelection=o.fsSelection, version=4)
+                fsSelection=o.fsSelection, version=4,
+                ulCodePageRange1=o.ulCodePageRange1, panose=o.panose)
     fb.setupCFF(names["psName"], {"FullName": names["fullName"]}, charstrings, {})
     fb.setupPost()
     head = fb.font["head"]
