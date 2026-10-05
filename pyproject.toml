@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "astroglyphs_2K"
-version = "0.2.0"
+version = "0.2.1"
 description = "OFL astrology glyph fonts (Unicode + two keyboard layouts) built from Noto, with metrics and embedding helpers"
 readme = "README.md"
 license = "MIT"
@@ -33,7 +33,9 @@ dependencies = []
 
 [project.optional-dependencies]
 build = ["fonttools>=4.4", "brotli>=1.0", "skia-pathops>=0.8"]
-test = ["pytest>=7", "ruff>=0.6", "mypy>=1.10", "fonttools>=4.4"]
+test = ["pytest>=7", "ruff>=0.6", "mypy>=1.10", "fonttools>=4.4", "brotli>=1.0"]
+# brotli is what lets fontTools open the .woff2 files; without it the tests can only
+# read the .ttf/.otf pair and the webfont goes unchecked.
 
 [project.urls]
 Homepage = "https://github.com/NoahChristian/astroglyphs_2K"

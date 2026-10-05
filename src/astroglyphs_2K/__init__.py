@@ -39,7 +39,7 @@ from ._data import (  # noqa: F401
     WOFF2_B64,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 # System fallbacks (used when embedding is off, or a viewer strips the embedded face).
 # Family names are single-quoted so the stacks are valid both in a CSS `font-family:` value
